@@ -1,1 +1,1 @@
-# ghosvx.github.io
+# FUCK UR SELF THIEFS
