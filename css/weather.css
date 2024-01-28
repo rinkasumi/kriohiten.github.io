@@ -1,1 +1,11 @@
 .raindrop{position:absolute;background-color:#0099cc;width:2px;height:10px;border-radius:50%;opacity:.7;animation:rainfall .6s linear infinite}@keyframes rainfall{0%{transform:translateY(0)}100%{transform:translateY(100vh)}}.snowflake{position:absolute;background-color:#fff;border-radius:50%;pointer-events:none;user-select:none}@keyframes snowfall{to{transform:translateY(100vh)}}.snowfall{overflow:hidden}body.snowfall .snowflake{animation:snowfall linear infinite;animation-duration:5s}
+footer {
+    background-color: rgba(26, 26, 26, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    opacity: 0.9;
+}
