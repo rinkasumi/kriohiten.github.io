@@ -1,28 +1,145 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title> Ghosvx.io </title>
+    <title>Ghosvx.io</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,600&family=Oswald:wght@200&family=Raleway:ital@0;1&display=swap" rel="stylesheet">
-<style>
-    body {
-        background-color: #1a1a1a;
-        color: #fff;
-        font-family: Raleway, sans-serif;
-        text-align: center;
-        margin-top: 20%;
-    }
-
-    @media only screen and (max-width: 600px) {
+    <style>
         body {
-            margin-top: 10%;
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Добавлено свойство, чтобы позиционировать надпись относительно body */
         }
 
         h1 {
-            font-size: 1.5em;
+            margin: 0;
         }
-    }
-</style>
+
+        .pill {
+            position: absolute;
+            top: 0;
+            width: 20px;
+            height: 40px;
+            border-radius: 10px;
+            animation: fall linear infinite;
+            overflow: hidden;
+            cursor: pointer; /* Добавлено свойство указывающее на то, что элемент может быть нажат */
+        }
+
+        .pill:before,
+        .pill:after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 20%;
+            background-color: #FF0000;
+            border-radius: 50%;
+        }
+
+        .pill:before {
+            bottom: 100%;
+            left: 30%;
+            transform: translateX(-50%);
+        }
+
+        .pill:after {
+            top: 100%;
+            left: 70%;
+            transform: translateX(-50%);
+        }
+
+        .pill div {
+            position: absolute;
+            width: 100%;
+            height: 20%;
+            border-radius: 50%;
+        }
+
+        .pill div:first-child {
+            top: 0;
+        }
+
+        .pill div:last-child {
+            bottom: 0;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh); /* Увеличил расстояние до 110vh */
+            }
+        }
+
+        .ghost-text {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: rgba(255, 255, 255, 0.3); /* Добавлено полупрозрачное белое цвет для малозаметности */
+            font-size: 12px; /* Размер шрифта */
+            animation: colorChange 5s linear infinite; /* Анимация изменения цвета */
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #fff; /* Начальный цвет (белый) */
+            }
+            25% {
+                color: #888; /* Первый цвет (серый) */
+            }
+            50% {
+                color: #fff; /* Второй цвет (белый) */
+            }
+            75% {
+                color: #888; /* Третий цвет (серый) */
+            }
+            100% {
+                color: #fff; /* Конечный цвет (белый) */
+            }
+        }
+
+    </style>
 </head>
 <body>
     <h1>Этой страницы не существует :3</h1>
+    <div class="ghost-text">ghosvx &lt;3</div> <!-- Добавлена малозаметная надпись -->
+    <script>
+        function createPill() {
+            const pill = document.createElement('div');
+            pill.classList.add('pill');
+            pill.style.left = Math.random() * 100 + 'vw';
+            pill.style.animationDuration = Math.random() * 6 + 5 + 's'; /* Увеличил длительность анимации */
+            
+            // Generate random color
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            pill.style.background = `linear-gradient(to bottom, #FFFFFF 50%, ${randomColor} 50%)`;
+            
+            pill.style.opacity = Math.random();
+            
+            // Generate random rotation
+            const rotation = Math.random() * 360;
+            pill.style.transform = `rotate(${rotation}deg)`;
+            
+            pill.onclick = function() { // Добавлен обработчик события клика
+                pill.remove();
+            };
+            
+            document.body.appendChild(pill);
+            
+            setTimeout(() => {
+                pill.remove();
+            }, 8000); /* Увеличил время до исчезновения */
+        }
+
+        setInterval(createPill, 300); /* Увеличил интервал между появлением таблеток */
+    </script>
 </body>
+</html>
