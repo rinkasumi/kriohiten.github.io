@@ -20,6 +20,7 @@
             align-items: center;
             height: 100vh;
             position: relative; /* Добавлено свойство, чтобы позиционировать надпись относительно body */
+            animation: none; /* Добавлено свойство для анимации изменения цвета */
         }
 
         h1 {
@@ -107,12 +108,36 @@
             }
         }
 
+        /* Добавлено мигание заднего фона */
+        @keyframes flashBackground {
+            0%, 16.67% {
+                background-color: #00ff00; /* Ярко зеленый */
+            }
+            16.67%, 33.33% {
+                background-color: #ffff00; /* Ярко желтый */
+            }
+            33.33%, 50% {
+                background-color: #ff0000; /* Ярко красный */
+            }
+            50%, 66.67% {
+                background-color: #ffa500; /* Ярко оранжевый */
+            }
+            66.67%, 83.33% {
+                background-color: #808080; /* Ярко серый */
+            }
+            83.33%, 100% {
+                background-color: #00ced1; /* Ярко бирюзовый */
+            }
+        }
+
     </style>
 </head>
 <body>
     <h1>Этой страницы не существует :3</h1>
     <div class="ghosvx-text">ghosvx &lt;3</div> <!-- Добавлена малозаметная надпись -->
     <script>
+        let clickCount = 0; // Добавлена переменная для отслеживания количества кликов
+
         function createPill() {
             const pill = document.createElement('div');
             pill.classList.add('pill');
@@ -130,7 +155,11 @@
             pill.style.transform = `rotate(${rotation}deg)`;
             
             pill.onclick = function() { // Добавлен обработчик события клика
+                clickCount++;
                 pill.remove();
+                if (clickCount >= 20) {
+                    startPsychedelicEffect();
+                }
             };
             
             document.body.appendChild(pill);
@@ -141,6 +170,11 @@
         }
 
         setInterval(createPill, 300); /* Увеличил интервал между появлением таблеток */
+
+        function startPsychedelicEffect() {
+            document.body.style.animation = 'colorChange 10s linear infinite'; // Применяем анимацию изменения цвета к body
+            document.body.style.animation += ', flashBackground 10s linear infinite'; // Добавляем анимацию мигания заднего фона
+        }
     </script>
 </body>
 </html>
