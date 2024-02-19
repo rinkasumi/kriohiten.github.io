@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ghosvx.io Mobile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Метатег для настройки масштабирования на мобильных устройствах -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,600&family=Oswald:wght@200&family=Raleway:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="icon" href="ico/ico/ico/ico/x.ico" type="image/x-icon"> <!-- Добавлена иконка сайта -->
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: Raleway, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative; /* Добавлено свойство, чтобы позиционировать надпись относительно body */
+            animation: none; /* Добавлено свойство для анимации изменения цвета */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px; /* Уменьшил размер заголовка для мобильных устройств */
+        }
+
+        .pill {
+            position: absolute;
+            top: 0;
+            width: 10px; /* Уменьшил размер таблетки для мобильных устройств */
+            height: 20px; /* Уменьшил размер таблетки для мобильных устройств */
+            border-radius: 5px; /* Уменьшил радиус границы для мобильных устройств */
+            animation: fall linear infinite;
+            overflow: hidden;
+            cursor: pointer; /* Добавлено свойство указывающее на то, что элемент может быть нажат */
+        }
+
+        .pill:before,
+        .pill:after {
+            content: '';
+            position: absolute;
+            width: 40%;
+            height: 10%;
+            background-color: #FF0000;
+            border-radius: 50%;
+        }
+
+        .pill:before {
+            bottom: 100%;
+            left: 30%;
+            transform: translateX(-50%);
+        }
+
+        .pill:after {
+            top: 100%;
+            left: 70%;
+            transform: translateX(-50%);
+        }
+
+        .pill div {
+            position: absolute;
+            width: 100%;
+            height: 10%;
+            border-radius: 50%;
+        }
+
+        .pill div:first-child {
+            top: 0;
+        }
+
+        .pill div:last-child {
+            bottom: 0;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh); /* Увеличил расстояние до 110vh */
+            }
+        }
+
+        .ghosvx-text {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: rgba(255, 255, 255, 0.3); /* Добавлено полупрозрачное белое цвет для малозаметности */
+            font-size: 12px; /* Размер шрифта */
+            animation: colorChange 5s linear infinite; /* Анимация изменения цвета */
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: #fff; /* Начальный цвет (белый) */
+            }
+            25% {
+                color: #888; /* Первый цвет (серый) */
+            }
+            50% {
+                color: #fff; /* Второй цвет (белый) */
+            }
+            75% {
+                color: #888; /* Третий цвет (серый) */
+            }
+            100% {
+                color: #fff; /* Конечный цвет (белый) */
+            }
+        }
+
+        /* Добавлено мигание заднего фона */
+        @keyframes flashBackground {
+            0%, 16.67% {
+                background-color: #00ff00; /* Ярко зеленый */
+            }
+            16.67%, 33.33% {
+                background-color: #ffff00; /* Ярко желтый */
+            }
+            33.33%, 50% {
+                background-color: #ff0000; /* Ярко красный */
+            }
+            50%, 66.67% {
+                background-color: #ffa500; /* Ярко оранжевый */
+            }
+            66.67%, 83.33% {
+                background-color: #808080; /* Ярко серый */
+            }
+            83.33%, 100% {
+                background-color: #00ced1; /* Ярко бирюзовый */
+            }
+        }
+
+        /* Медиа-запрос для мобильных устройств */
+        @media screen and (max-width: 600px) {
+            .pill {
+                width: 5px; /* Уменьшил размер таблетки для мобильных устройств */
+                height: 10px; /* Уменьшил размер таблетки для мобильных устройств */
+            }
+
+            .pill:before,
+            .pill:after {
+                width: 20%; /* Уменьшил размер частей таблетки для мобильных устройств */
+                height: 5%; /* Уменьшил размер частей таблетки для мобильных устройств */
+            }
+
+            .ghosvx-text {
+                bottom: 5px; /* Уменьшил отступ надписи для мобильных устройств */
+                font-size: 8px; /* Уменьшил размер шрифта для мобильных устройств */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1> Мобайл юзеры не могут закидываться таблетками :< </h1>
+    <div class="ghosvx-text">ghosvx &lt;3</div> <!-- Добавлена малозаметная надпись -->
+    <script>
+        let clickCount = 0; // Добавлена переменная для отслеживания количества кликов
+
+        function createPill() {
+            const pill = document.createElement('div');
+            pill.classList.add('pill');
+            pill.style.left = Math.random() * 100 + 'vw';
+            pill.style.animationDuration = Math.random() * 6 + 5 + 's'; /* Увеличил длительность анимации */
+            
+            // Generate random color
+            const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            pill.style.background = `linear-gradient(to bottom, #FFFFFF 50%, ${randomColor} 50%)`;
+            
+            pill.style.opacity = Math.random();
+            
+            // Generate random rotation
+            const rotation = Math.random() * 360;
+            pill.style.transform = `rotate(${rotation}deg)`;
+            
+            pill.onclick = function() { // Добавлен обработчик события клика
+                clickCount++;
+                pill.remove();
+                if (clickCount >= 20) {
+                    startPsychedelicEffect();
+                }
+            };
+            
+            document.body.appendChild(pill);
+            
+            setTimeout(() => {
+                pill.remove();
+            }, 8000); /* Увеличил время до исчезновения */
+        }
+
+        setInterval(createPill, 300); /* Увеличил интервал между появлением таблеток */
+
+        function startPsychedelicEffect() {
+            document.body.style.animation = 'colorChange 10s linear infinite'; // Применяем анимацию изменения цвета к body
+            document.body.style.animation += ', flashBackground 10s linear infinite'; // Добавляем анимацию мигания заднего фона
+        }
+    </script>
+</body>
+</html>

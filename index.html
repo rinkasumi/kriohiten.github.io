@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Ghosvx.io</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@1,600&family=Oswald:wght@200&family=Raleway:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="icon" href="ico/ico/ico/ico/x.ico" type="image/x-icon"> <!-- Добавлена иконка сайта -->
+    <link rel="icon" href="ico/ico/ico/ico/x.ico" type="image/x-icon">
     <style>
         body {
             background-color: #1a1a1a;
@@ -19,12 +20,13 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative; /* Добавлено свойство, чтобы позиционировать надпись относительно body */
-            animation: none; /* Добавлено свойство для анимации изменения цвета */
+            position: relative;
+            animation: none;
         }
 
-        h1 {
+        h1, .ghosvx-text {
             margin: 0;
+            user-select: none;
         }
 
         .pill {
@@ -35,7 +37,7 @@
             border-radius: 10px;
             animation: fall linear infinite;
             overflow: hidden;
-            cursor: pointer; /* Добавлено свойство указывающее на то, что элемент может быть нажат */
+            cursor: pointer;
         }
 
         .pill:before,
@@ -77,7 +79,7 @@
 
         @keyframes fall {
             to {
-                transform: translateY(110vh); /* Увеличил расстояние до 110vh */
+                transform: translateY(110vh);
             }
         }
 
@@ -85,96 +87,180 @@
             position: absolute;
             bottom: 10px;
             left: 10px;
-            color: rgba(255, 255, 255, 0.3); /* Добавлено полупрозрачное белое цвет для малозаметности */
-            font-size: 12px; /* Размер шрифта */
-            animation: colorChange 5s linear infinite; /* Анимация изменения цвета */
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            animation: colorChange 5s linear infinite;
         }
 
         @keyframes colorChange {
             0% {
-                color: #fff; /* Начальный цвет (белый) */
+                color: #fff;
             }
             25% {
-                color: #888; /* Первый цвет (серый) */
+                color: #888;
             }
             50% {
-                color: #fff; /* Второй цвет (белый) */
+                color: #fff;
             }
             75% {
-                color: #888; /* Третий цвет (серый) */
+                color: #888;
             }
             100% {
-                color: #fff; /* Конечный цвет (белый) */
+                color: #fff;
             }
         }
 
-        /* Добавлено мигание заднего фона */
         @keyframes flashBackground {
-            0%, 16.67% {
-                background-color: #00ff00; /* Ярко зеленый */
+            0%, 3.33% {
+                background-color: #00ff00;
             }
-            16.67%, 33.33% {
-                background-color: #ffff00; /* Ярко желтый */
+            3.33%, 6.67% {
+                background-color: #fff;
             }
-            33.33%, 50% {
-                background-color: #ff0000; /* Ярко красный */
+            6.67%, 10% {
+                background-color: #ffff00;
             }
-            50%, 66.67% {
-                background-color: #ffa500; /* Ярко оранжевый */
+            10%, 13.33% {
+                background-color: #000;
             }
-            66.67%, 83.33% {
-                background-color: #808080; /* Ярко серый */
+            13.33%, 16.67% {
+                background-color: #ff0000;
             }
-            83.33%, 100% {
-                background-color: #00ced1; /* Ярко бирюзовый */
+            16.67%, 20% {
+                background-color: #ffa500;
+            }
+            20%, 23.33% {
+                background-color: #fff;
+            }
+            23.33%, 26.67% {
+                background-color: #808080;
+            }
+            26.67%, 30% {
+                background-color: #000;
+            }
+            30%, 33.33% {
+                background-color: #00ced1;
+            }
+            33.33%, 22.33% {
+                background-color: #fff;
             }
         }
 
+        .song-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            color: white;
+            transform: translateX(0);
+            clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        .song-info.active {
+            transform: translateX(0);
+            transition: transform 0.5s ease;
+        }  
+
+        .song-info img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+        }
+
+        .ghosvx-text:hover + .tooltip {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
     <h1>Этой страницы не существует :3</h1>
-    <div class="ghosvx-text">ghosvx &lt;3</div> <!-- Добавлена малозаметная надпись -->
+    <div class="ghosvx-text">ghosvx &lt;3</div>
+    <div class="tooltip">Создатель страницы не пропагандирует наркотики. Все создано ради шутки и ха-ха-ха. Никому не советую употреблять наркотики</div>
+    <audio id="tripAudio" src="breakcore.mp3" preload="auto"></audio>
+    <div class="song-info" style="display: none;">
+        <img src="https://i1.sndcdn.com/artworks-NuhAyyfss4hxaVj6-c0CKyA-t500x500.jpg" alt="Album Photo">
+        <div>
+            <p class="name">daydreaming about dying</p>
+            <p class="author">frxgxd</p>
+        </div>
+    </div>
     <script>
-        let clickCount = 0; // Добавлена переменная для отслеживания количества кликов
-
+        const audio = document.getElementById('tripAudio');
+        audio.addEventListener('ended', function() {
+            audio.play();
+        });
+        let clickCount = 0;
+        let narcotripActivated = false;
         function createPill() {
+            if (narcotripActivated) return;
             const pill = document.createElement('div');
             pill.classList.add('pill');
             pill.style.left = Math.random() * 100 + 'vw';
-            pill.style.animationDuration = Math.random() * 6 + 5 + 's'; /* Увеличил длительность анимации */
-            
-            // Generate random color
+            pill.style.animationDuration = Math.random() * 6 + 5 + 's';
             const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
             pill.style.background = `linear-gradient(to bottom, #FFFFFF 50%, ${randomColor} 50%)`;
-            
             pill.style.opacity = Math.random();
-            
-            // Generate random rotation
             const rotation = Math.random() * 360;
             pill.style.transform = `rotate(${rotation}deg)`;
-            
-            pill.onclick = function() { // Добавлен обработчик события клика
+            pill.onclick = function() {
                 clickCount++;
                 pill.remove();
                 if (clickCount >= 20) {
                     startPsychedelicEffect();
                 }
             };
-            
             document.body.appendChild(pill);
-            
             setTimeout(() => {
                 pill.remove();
-            }, 8000); /* Увеличил время до исчезновения */
+            }, 8000);
         }
-
-        setInterval(createPill, 300); /* Увеличил интервал между появлением таблеток */
-
+        setInterval(createPill, 300);
         function startPsychedelicEffect() {
-            document.body.style.animation = 'colorChange 10s linear infinite'; // Применяем анимацию изменения цвета к body
-            document.body.style.animation += ', flashBackground 10s linear infinite'; // Добавляем анимацию мигания заднего фона
+            narcotripActivated = true;
+            const pills = document.querySelectorAll('.pill');
+            pills.forEach(pill => {
+                pill.style.animation = 'none';
+                pill.onclick = null;
+            });
+            document.body.style.animation = 'colorChange 10s linear infinite';
+            document.body.style.animation += ', flashBackground 10s linear infinite';
+            audio.play();
+            const songInfo = document.querySelector('.song-info');
+            songInfo.style.display = 'flex';
+            songInfo.classList.add('active');
+            const h1 = document.querySelector('h1');
+            h1.textContent = 'бля пиздец тя уебало :0';
+            setTimeout(() => {
+                songInfo.style.animation = 'slideOut 1s ease-in-out forwards';
+                setTimeout(() => {
+                    songInfo.style.display = 'none';
+                }, 1000);
+            }, 5000);
         }
     </script>
+    <script>
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+        if (isMobileDevice()) {
+            window.location.href = "mobile.html";
+        }
+    </script>    
 </body>
 </html>
