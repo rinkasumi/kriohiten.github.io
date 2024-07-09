@@ -34,13 +34,33 @@
             margin-bottom: 20px; /* Added margin */
         }
 
-        .score-container .user-info {
+        .mini-profile {
             display: flex;
-            flex-direction: column;
-            cursor: pointer; /* Cursor pointer for the username */
+            align-items: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
         }
 
-        .score-container .user-info span {
+        .mini-profile img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .mini-profile .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mini-profile .user-info .username {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .mini-profile .user-info .fullname {
             font-size: 0.8rem;
         }
 
@@ -98,8 +118,12 @@
 </head>
 <body>
     <div class="score-container">
-        <div class="user-info" id="usernameContainer">
-            <span id="username">Нажми чтобы ник ввести</span>
+        <div class="mini-profile" id="usernameContainer">
+            <img src="placeholder.png" alt="User Avatar" id="userAvatar">
+            <div class="user-info">
+                <div class="username" id="username">Username</div>
+                <div class="fullname" id="fullname">Full Name</div>
+            </div>
         </div>
         <div class="score">
             <img style="width: 30px; height: 30px;" src="onemarucoin.png" alt="OneMaru Coin Icon"> <span id="score">0</span>
@@ -107,7 +131,7 @@
     </div>
     <div class="game-container">
         <div class="coin-container">
-            <img src="onemarucoin.png" alt="User Avatar" id="coin" class="coin">
+            <img src="onemarucoin.png" alt="OneMaru Coin" id="coin" class="coin">
         </div>
     </div>
     <script>
@@ -154,11 +178,14 @@
             const tg = window.Telegram.WebApp;
             tg.ready();
 
-            // Get user avatar
+            // Get user info and avatar
             if (tg.initDataUnsafe.user) {
                 const user = tg.initDataUnsafe.user;
                 const avatarUrl = `https://t.me/i/userpic/320/${user.username}.jpg`;
-                coin.src = avatarUrl;
+
+                document.getElementById('userAvatar').src = avatarUrl;
+                document.getElementById('username').textContent = user.username;
+                document.getElementById('fullname').textContent = user.first_name + ' ' + user.last_name;
             }
         });
     </script>
