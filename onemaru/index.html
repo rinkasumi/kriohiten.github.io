@@ -64,7 +64,7 @@
             font-size: 0.8rem;
         }
 
-        .mini-profile .user-info .phone {
+        .mini-profile .user-info .userid {
             font-size: 0.8rem;
             color: lightgray;
         }
@@ -128,7 +128,7 @@
             <div class="user-info">
                 <div class="username" id="username">Username</div>
                 <div class="fullname" id="fullname">Full Name</div>
-                <div class="phone" id="phone">Phone Number</div>
+                <div class="userid" id="userid">User ID</div>
             </div>
         </div>
         <div class="score">
@@ -192,7 +192,7 @@
                 document.getElementById('userAvatar').src = avatarUrl;
                 document.getElementById('username').textContent = user.username;
                 document.getElementById('fullname').textContent = user.first_name + ' ' + user.last_name;
-                document.getElementById('phone').textContent = user.phone_number ? user.phone_number : 'Phone Number';
+                document.getElementById('userid').textContent = `ID: ${user.id}`;
             }
         });
     </script>
