@@ -73,15 +73,16 @@
             width: 200px;
             height: 200px;
             cursor: pointer;
-            transition: transform 0.2s ease; /* Добавляем переход для плавного изменения */
+            transition: transform 0.2s ease;
+            -webkit-tap-highlight-color: transparent; /* Отключение выделения при нажатии */
         }
 
         .coin-container img:hover {
-            transform: scale(1.1); /* Увеличение размера на 10% при наведении */
+            transform: scale(1.1);
         }
 
         .coin-container img.clicked {
-            animation: spin 0.5s linear; /* Пример анимации вращения */
+            animation: spin 0.5s linear;
         }
 
         @keyframes spin {
@@ -93,6 +94,7 @@
             }
         }
     </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div class="score-container">
@@ -105,7 +107,7 @@
     </div>
     <div class="game-container">
         <div class="coin-container">
-            <img src="onemarucoin.png" alt="OneMaru Coin" id="coin" class="coin">
+            <img src="onemarucoin.png" alt="User Avatar" id="coin" class="coin">
         </div>
     </div>
     <script>
@@ -117,7 +119,7 @@
             // Check if username exists in localStorage
             let username = localStorage.getItem('username');
             if (!username) {
-                username = 'Нажми чтобы ник ввести'; // Default username
+                username = 'Username'; // Default username
             }
             document.getElementById('username').textContent = username;
 
@@ -147,6 +149,17 @@
                     coin.classList.remove('clicked');
                 }, 500); // Время анимации в миллисекундах (здесь 0.5 секунды)
             });
+
+            // Telegram Web App initialization
+            const tg = window.Telegram.WebApp;
+            tg.ready();
+
+            // Get user avatar
+            if (tg.initDataUnsafe.user) {
+                const user = tg.initDataUnsafe.user;
+                const avatarUrl = `https://t.me/i/userpic/320/${user.username}.jpg`;
+                coin.src = avatarUrl;
+            }
         });
     </script>
 </body>
