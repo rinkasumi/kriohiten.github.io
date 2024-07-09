@@ -1,1 +1,152 @@
-why?
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>OneMaru Kombat</title>
+    <style>
+        body {
+            font-family: Raleway;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to bottom right, black, orange);
+            overflow: hidden; /* Disable scrolling */
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Spread items apart */
+            width: 80%; /* Adjusted width */
+            padding: 10px;
+            font-size: 1.5rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 5px;
+            margin-bottom: 20px; /* Added margin */
+        }
+
+        .score-container .user-info {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer; /* Cursor pointer for the username */
+        }
+
+        .score-container .user-info span {
+            font-size: 0.8rem;
+        }
+
+        .score-container .score {
+            text-align: right; /* Align score to the right */
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .coin-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: rgba(16, 16, 16, 0.766);
+            border-radius: 10px;
+            margin: 20px;
+        }
+
+        .coin-container img {
+            width: 200px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.2s ease; /* Добавляем переход для плавного изменения */
+        }
+
+        .coin-container img:hover {
+            transform: scale(1.1); /* Увеличение размера на 10% при наведении */
+        }
+
+        .coin-container img.clicked {
+            animation: spin 0.5s linear; /* Пример анимации вращения */
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="score-container">
+        <div class="user-info" id="usernameContainer">
+            <span id="username">Нажми чтобы ник ввести</span>
+        </div>
+        <div class="score">
+            Score: <span id="score">0</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <div class="coin-container">
+            <img src="onemarucoin.png" alt="OneMaru Coin" id="coin" class="coin">
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const coin = document.getElementById('coin');
+            const scoreDisplay = document.getElementById('score');
+            let score = 0;
+
+            // Check if username exists in localStorage
+            let username = localStorage.getItem('username');
+            if (!username) {
+                username = 'Username'; // Default username
+            }
+            document.getElementById('username').textContent = username;
+
+            document.getElementById('usernameContainer').addEventListener('click', () => {
+                username = prompt('Под каким именем хуесосить будут:', username);
+                if (username) {
+                    localStorage.setItem('username', username);
+                    document.getElementById('username').textContent = username;
+                }
+            });
+
+            // Check if score exists in localStorage
+            if (localStorage.getItem('score')) {
+                score = parseInt(localStorage.getItem('score'));
+                scoreDisplay.textContent = score;
+            }
+
+            coin.addEventListener('click', () => {
+                score++;
+                scoreDisplay.textContent = score;
+                localStorage.setItem('score', score.toString());
+
+                coin.classList.add('clicked'); // Добавляем класс для анимации
+
+                // Убираем класс через определенное время, чтобы анимация могла повториться
+                setTimeout(() => {
+                    coin.classList.remove('clicked');
+                }, 500); // Время анимации в миллисекундах (здесь 0.5 секунды)
+            });
+        });
+    </script>
+</body>
+</html>
