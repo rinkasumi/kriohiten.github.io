@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini App</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            transition: background 0.6s ease-in-out;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Прелоадер */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #preloader .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-left-color: #333;
+            animation: spin 1s infinite linear;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .preloader-text {
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .checkmark {
+            display: none;
+            font-size: 50px;
+            color: green;
+        }
+
+        .container {
+            perspective: 1000px;
+            width: 320px;
+            max-width: 100%;
+            visibility: hidden;
+        }
+        
+        .box {
+            width: 100%;
+            height: 400px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-in-out, background 0.6s ease-in-out;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .box.swipe-right {
+            transform: rotateY(180deg);
+            background-image: url('assets/img/background/card/qishiro_bg.jpg');
+        }
+
+        .box {
+            background-image: url('assets/img/background/card/ghosvx_bg.jpg');
+        }
+
+        .box .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        .box .side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .box .side.back {
+            transform: rotateY(180deg);
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: #eee;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .social-buttons a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .social-buttons a.mail-button {
+            width: 90px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body id="body">
+
+<!-- Прелоадер -->
+<div id="preloader">
+    <div class="spinner"></div>
+    <div class="preloader-text">НЕинтересный факт: <span id="fact"></span></div>
+    <div class="checkmark">✔</div>
+</div>
+
+<div class="container">
+    <div class="box" id="box">
+        <div class="overlay"></div>
+        <div class="side front">
+            <img src="assets/img/ava/ghosvx.jpg" alt="Avatar" class="avatar">
+            <div class="name">Госвикс</div>
+            <div class="bio">Технологический энтузиаст</div>
+            <div class="social-buttons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="mail-button"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="side back">
+            <img src="assets/img/ava/qishiro.jpg" alt="Avatar" class="avatar">
+            <div class="name">Qishiro</div>
+            <div class="bio">Другая краткая биография</div>
+            <div class="social-buttons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                <a href="#" class="mail-button"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Список НЕинтересных фактов
+    const facts = [
+        "Медведи могут бегать быстрее лошадей.",
+        "Томат — это ягода, а не овощ.",
+        "Страусы могут бегать быстрее лошадей.",
+        "Кошки спят около 13-14 часов в сутки.",
+        "У улитки 25 000 зубов.",
+        "Молоко бегемота розовое.",
+        "Бананы — ягоды, а не фрукты.",
+        "Сердце синего кита весит около тонны.",
+        "Шоколад был когда-то валютой в Мексике.",
+        "В мире более 7 000 языков.",
+        "Ананасы растут на земле, а не на деревьях.",
+        "Крокодилы не могут высовывать язык.",
+        "Медузы не имеют мозга или сердца.",
+        "Самый большой орган тела — это кожа.",
+        "Лев спит до 20 часов в день.",
+        "Человеческий мозг состоит на 80% из воды.",
+        "Зебры — черные с белыми полосками.",
+        "Кофе — самый популярный напиток в мире.",
+        "Мышцы языка самые сильные в организме.",
+        "Пчёлы могут видеть ультрафиолетовый свет."
+    ];
+
+    window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+        const container = document.querySelector('.container');
+        const factElement = document.getElementById('fact');
+        const spinner = document.querySelector('.spinner');
+        const checkmark = document.querySelector('.checkmark');
+        
+        // Выбор случайного факта
+        const randomFact = facts[Math.floor(Math.random() * facts.length)];
+        factElement.textContent = randomFact;
+
+        // Ждём пока все ресурсы загружены
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                checkmark.style.display = 'block';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    container.style.visibility = 'visible';
+                }, 7000); // Задержка 7 секунд
+            }, 7000); // Задержка 7 секунд
+        });
+    });
+
+    let startX;
+
+    document.getElementById('box').addEventListener('touchstart', function(event) {
+        startX = event.touches[0].clientX;
+    });
+
+    document.getElementById('box').addEventListener('touchmove', function(event) {
+        const moveX = event.touches[0].clientX;
+        const body = document.getElementById('body');
+        if (moveX - startX > 50) { // Swiped right
+            document.getElementById('box').classList.add('swipe-right');
+            body.style.backgroundImage = "url('assets/img/background/body/qishiro_bg_page.jpg')";
+        } else if (startX - moveX > 50) { // Swiped left
+            document.getElementById('box').classList.remove('swipe-right');
+            body.style.backgroundImage = "url('assets/img/background/body/ghosvx_bg_page.jpg')";
+        }
+    });
+
+    // Set the initial background for the page
+    document.getElementById('body').style.backgroundImage = "url('assets/img/background/body/ghosvx_bg_page.jpg')";
+</script>
+
+</body>
+</html>
